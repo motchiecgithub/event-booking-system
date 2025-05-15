@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 public class LoginApp extends Application{
     public void start(Stage stage){
 
+        DatabaseHelper.initializeDatabase();
+
         Label userLabel = new Label("Username: ");
         TextField userField = new TextField();
 
@@ -28,6 +30,7 @@ public class LoginApp extends Application{
         passwordField.getStyleClass().add("password-field");
         loginButton.getStyleClass().add("button");
         messageLabel.getStyleClass().add("message-label");
+        
 
         GridPane grid = new GridPane();
         grid.setVgap(10);
