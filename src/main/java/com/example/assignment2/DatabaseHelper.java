@@ -8,14 +8,17 @@ public class DatabaseHelper {
     }
 
     public static void initializeDatabase(){
-        String sql = "CREATE TABLE IF NOT EXISTS users (" +
-                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                     "username TEXT NOT NULL UNIQUE," +
-                     "password TEXT NOT NULL)";
+        String sql = """
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL UNIQUE,
+                password TEXT NOT NULL
+            );
+        """;
         try (Connection conn = connect();
              Statement stmt = conn.createStatement()){
             stmt.execute(sql);
-            stmt.execute("INSERT OR IGNORE INTO users (username, password) VALUES ('admin', '1234'");
+            stmt.execute("INSERT OR IGNORE INTO users (username, password) VALUES ('admin', '1234');");
         } catch (SQLException e){
             System.out.println("DB Init Error: " + e.getMessage());
         }

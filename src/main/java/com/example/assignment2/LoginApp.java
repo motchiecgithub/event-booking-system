@@ -2,6 +2,7 @@ package com.example.assignment2;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -19,7 +20,7 @@ public class LoginApp extends Application{
         TextField userField = new TextField();
 
         Label passwordLabel = new Label("Password: ");
-        TextField passwordField = new TextField();
+        PasswordField passwordField = new PasswordField();
 
         Button loginButton = new Button("Login");
         Label messageLabel = new Label();
@@ -30,7 +31,18 @@ public class LoginApp extends Application{
         passwordField.getStyleClass().add("password-field");
         loginButton.getStyleClass().add("button");
         messageLabel.getStyleClass().add("message-label");
-        
+
+        loginButton.setOnAction(e -> {
+            String username = userField.getText();
+            String password = passwordField.getText();
+
+            boolean valid = DatabaseHelper.checkLogin(username, password);
+            if (valid) {
+                messageLabel.setText("Login successful!");
+            } else {
+                messageLabel.setText("Invalid credentials. Try again.");
+            }
+        });
 
         GridPane grid = new GridPane();
         grid.setVgap(10);
