@@ -19,8 +19,15 @@ public class LoginApp extends Application{
         Label passwordLabel = new Label("Password: ");
         TextField passwordField = new TextField();
 
-        Button loginButton = new Button("Login: ");
+        Button loginButton = new Button("Login");
         Label messageLabel = new Label();
+
+        userLabel.getStyleClass().add("label");
+        passwordLabel.getStyleClass().add("label");
+        userField.getStyleClass().add("text-field");
+        passwordField.getStyleClass().add("password-field");
+        loginButton.getStyleClass().add("button");
+        messageLabel.getStyleClass().add("message-label");
 
         GridPane grid = new GridPane();
         grid.setVgap(10);
@@ -33,6 +40,7 @@ public class LoginApp extends Application{
         grid.add(messageLabel, 1, 3);
 
         Scene scene = new Scene(grid, 300, 200);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
