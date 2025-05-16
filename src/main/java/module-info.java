@@ -4,7 +4,7 @@ module com.example.assignment2 {
     requires java.desktop;
     requires java.sql;
 
-
+    opens com.example.assignment2.model to javafx.base;
     opens com.example.assignment2 to javafx.fxml;
     exports com.example.assignment2;
 }

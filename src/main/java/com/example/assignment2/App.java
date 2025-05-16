@@ -45,7 +45,7 @@ public class App extends Application{
 
     public void showDashboard(String preferredName) {
         DashboardView dashboardView = new DashboardView(preferredName);
-        Scene scene = new Scene(dashboardView.getView(), 400, 200);
+        Scene scene = new Scene(dashboardView.getView(), 850, 450);
         primaryStage.setTitle("Dashboard");
         primaryStage.setScene(scene);
         primaryStage.show();
