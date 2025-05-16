@@ -2,11 +2,13 @@ package com.example.assignment2.view;
 
 import com.example.assignment2.model.Event;
 import com.example.assignment2.model.EventDAO;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import java.util.List;
+import java.util.function.Function;
 
 public class DashboardView {
     private final GridPane layout;
@@ -21,14 +23,15 @@ public class DashboardView {
         List<Event> events = EventDAO.loadEvents("events.dat");
 
         eventTable.setItems(FXCollections.observableArrayList(events));
+
         eventTable.getColumns().addAll(
-                createCol("Title", "title"),
-                createCol("Venue", "venue"),
-                createCol("Day", "day"),
-                createCol("Price", "price"),
-                createCol("Sold", "sold"),
-                createCol("Total", "total"),
-                createCol("Remaining", "remaining")
+                createCol("Title", Event::getTitle),
+                createCol("Venue", Event::getVenue),
+                createCol("Day", Event::getDay),
+                createCol("Price", Event::getPrice),
+                createCol("Sold", Event::getSold),
+                createCol("Total", Event::getTotal),
+                createCol("Remaining", Event::getRemaining)
         );
 
         // Layout with GridPane
@@ -44,10 +47,9 @@ public class DashboardView {
         layout.add(eventTable, 0, 1);
     }
 
-    private <T> TableColumn<Event, T> createCol(String title, String property) {
-        TableColumn<Event, T> col = new TableColumn<>(title);
-        col.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>(property));
-        col.setMinWidth(100);
+    private static <S, T> TableColumn<S, T> createCol(String title, Function<S, T> mapper) {
+        TableColumn<S, T> col = new TableColumn<>(title);
+        col.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(mapper.apply(cellData.getValue())));
         return col;
     }
 
